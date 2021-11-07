@@ -1,0 +1,36 @@
+{
+  "name": "product-catalog",
+  "version": "1.0.0",
+  "description": "product catalog rest api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "pg-promise",
+    "rest-api"
+  ],
+  "author": "ichsankurnia",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.12",
+    "moment-timezone": "^0.5.33",
+    "multer": "^1.4.3",
+    "nodemon": "^2.0.14",
+    "path": "^0.12.7",
+    "pg": "^8.7.1",
+    "pg-promise": "^10.11.1",
+    "sharp": "^0.29.2"
+  }
+}
