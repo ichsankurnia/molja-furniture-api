@@ -191,7 +191,7 @@ const resizeCustomerPhotos = async (req, res, next) => {
 
 
 const getResult = async (req, res) => {
-	if (req.body.images.length <= 0) {
+	if (req.body.images?.length <= 0) {
 		return res.send(`You must select at least 1 image.`);
 	}
 

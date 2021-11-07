@@ -44,7 +44,7 @@ class AboutUsController {
                 if(findArticle){
 
                     let arrURLImages = []
-                    if(req.body.images.length > 0){
+                    if(req.body.images?.length > 0){
                         console.log("FILE UPLADED")
 
                         await Promise.all(req.body.images.map(async (image) => {
@@ -73,7 +73,7 @@ class AboutUsController {
                         response.data = data
                     }
                 }else{
-                    if(req.body.images.length > 0){
+                    if(req.body.images?.length > 0){
                         await deleteImages(req.body.images)
                     }
                     response.message = "about us not found"
@@ -81,7 +81,7 @@ class AboutUsController {
 
                 return res.send(response)
             }else{
-                if(req.body.images.length > 0){
+                if(req.body.images?.length > 0){
                     await deleteImages(req.body.images)
                 }
                 return next(new ValidationError(error.message))

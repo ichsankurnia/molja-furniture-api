@@ -29,10 +29,10 @@ class CatalogModel {
     static findAll = async () => {
         const sql = `
         select 
-            a.id, a.name, a.category_id, b.category_name, a.images, a.dimention, a.button
+            a.id, a.name, a.description, a.category_id, b.category_name, a.images, a.dimention, a.button
         from 
             ${tableName} a
-        join
+        left join
             public.t_category_catalog b on a.category_id = b.id
         `
 

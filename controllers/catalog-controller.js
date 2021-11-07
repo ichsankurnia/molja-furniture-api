@@ -13,6 +13,7 @@ class CatalogController {
             
             const schema = Joi.object({
                 name: Joi.string().required(),
+                description: Joi.string().optional().allow('').allow(null),
                 category_id: Joi.number().required(),
                 images: Joi.any().meta({swaggerType: 'file'}).optional().allow('').allow(null).description('image file'),
                 dimention: Joi.string().optional().allow('').allow(null),
@@ -25,7 +26,7 @@ class CatalogController {
 
                 const findCatalog = await CatalogModel.findOne({name: req.body.name})
                 if(findCatalog){
-                    if(req.body.images.length > 0){
+                    if(req.body.images?.length > 0){
                         await deleteImages(req.body.images)
                     }
                     response.message = 'failed, catalog already exist'
@@ -35,7 +36,7 @@ class CatalogController {
                 // Check Category
                 const findCategory = await findOneCategory({id: req.body.category_id})
                 if(!findCategory){
-                    if(req.body.images.length > 0){
+                    if(req.body.images?.length > 0){
                         await deleteImages(req.body.images)
                     }
                     response.message = "failed, category doesn't exist"
@@ -43,7 +44,7 @@ class CatalogController {
                 }
 
                 let arrURLImages = []
-                if(req.body.images.length > 0){
+                if(req.body.images?.length > 0){
                     await Promise.all(req.body.images.map(async (image) => {
                         const urlImage = await getDomainName(req) + "/" + process.env.IMAGE_PATH + '/' + image
                         console.log(urlImage)
@@ -65,7 +66,7 @@ class CatalogController {
 
                 return res.send(response)
             }else{
-                if(req.body.images.length > 0){
+                if(req.body.images?.length > 0){
                     await deleteImages(req.body.images)
                 }
                 return next(new ValidationError(error.message))
@@ -127,6 +128,7 @@ class CatalogController {
 
             const schema = Joi.object({
                 name: Joi.string().optional(),
+                description: Joi.string().optional().allow('').allow(null),
                 category_id: Joi.number().optional(),
                 images: Joi.any().meta({swaggerType: 'file'}).optional().allow('').allow(null).description('image file'),
                 dimention: Joi.string().optional().allow('').allow(null),
@@ -148,7 +150,7 @@ class CatalogController {
                         if(findCatalogName){
 
                             if(findCatalog.id !== findCatalogName.id){
-                                if(req.body.images.length > 0){
+                                if(req.body.images?.length > 0){
                                     await deleteImages(req.body.images)
                                 }
                                 response.message = `failed, client '${req.body.name}' already exist`
@@ -161,7 +163,7 @@ class CatalogController {
                     if(req.body.category_id){
                         const findCategory = await findOneCategory({id: req.body.category_id})
                         if(!findCategory){
-                            if(req.body.images.length > 0){
+                            if(req.body.images?.length > 0){
                                 await deleteImages(req.body.images)
                             }
                             response.message = "failed, category doesn't exist"
@@ -170,7 +172,7 @@ class CatalogController {
                     }
 
                     let arrURLImages = []
-                    if(req.body.images.length > 0){
+                    if(req.body.images?.length > 0){
                         await Promise.all(req.body.images.map(async (image) => {
                             const urlImage = await getDomainName(req) + "/" + process.env.IMAGE_PATH + '/' + image
                             console.log(urlImage)
@@ -187,7 +189,7 @@ class CatalogController {
                     
                     const data = await CatalogModel.update(req.params, req.body)
                     if(data){
-                        if(req.body.images.length > 0){
+                        if(req.body.images?.length > 0){
                             await deleteImages(findCatalog?.images)
                         }
 
@@ -196,7 +198,7 @@ class CatalogController {
                         response.data = data
                     }
                 }else{
-                    if(req.body.images.length > 0){
+                    if(req.body.images?.length > 0){
                         await deleteImages(req.body.images)
                     }
                     response.message = "catalog not found"
@@ -204,7 +206,7 @@ class CatalogController {
 
                 return res.send(response)
             }else{
-                if(req.body.images.length > 0){
+                if(req.body.images?.length > 0){
                     await deleteImages(req.body.images)
                 }
                 return next(new ValidationError(error.message))
