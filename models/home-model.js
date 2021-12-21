@@ -1,7 +1,10 @@
 const { db, commonQueryGetOne, commonQueryGetAll, commonQueryDelete, commonQueryUpdate, commonQueryInsert } = require("./database")
 
-const tableArticle = 'public.t_article'
-const tableClient = 'public.t_client'
+require('dotenv').config()
+const {DB_SCHEMA} = process.env
+
+const tableArticle = `${DB_SCHEMA}.t_article`
+const tableClient = `${DB_SCHEMA}.t_client`
 
 class HomeModel {
 

@@ -1,6 +1,9 @@
 const { db, commonQueryGetOne, commonQueryGetAll, commonQueryDelete, commonQueryUpdate, commonQueryInsert } = require("./database")
 
-const tableName = 'public.t_contact_us'
+require('dotenv').config()
+const {DB_SCHEMA} = process.env
+
+const tableName = `${DB_SCHEMA}.t_contact_us`
 
 class ContactUsModel {
 

@@ -1,6 +1,9 @@
 const { commonQueryGetOne, db, commonQueryInsert, commonQueryUpdate, commonQueryDelete, commonQueryGetAll } = require("./database")
 
-const tableName = 'public.t_catalog'
+require('dotenv').config()
+const {DB_SCHEMA} = process.env
+
+const tableName = `${DB_SCHEMA}.t_catalog`
 
 class CatalogModel {
 
@@ -33,7 +36,7 @@ class CatalogModel {
         from 
             ${tableName} a
         left join
-            public.t_category_catalog b on a.category_id = b.id
+            ${DB_SCHEMA}.t_category_catalog b on a.category_id = b.id
         `
 
         try {
@@ -109,7 +112,7 @@ class CatalogModel {
 
 
     static findCategories = async () => {
-        const sql = commonQueryGetAll('public.t_category_catalog')
+        const sql = commonQueryGetAll(`${DB_SCHEMA}.t_category_catalog`)
 
         try {
             const result = await db.many(sql)
@@ -121,7 +124,7 @@ class CatalogModel {
     }
 
     static findOneCategory = async (whereData) => {
-        const sql = commonQueryGetOne('public.t_category_catalog', whereData, '')
+        const sql = commonQueryGetOne(`${DB_SCHEMA}.t_category_catalog`, whereData, '')
 
         try {
             const result = await db.one(sql)
