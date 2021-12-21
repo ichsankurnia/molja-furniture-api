@@ -1,0 +1,3 @@
+GRANT ALL ON schema "catalog" TO goesnobe_test;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA "catalog" TO goesnobe_test;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA "catalog" TO goesnobe_test;
