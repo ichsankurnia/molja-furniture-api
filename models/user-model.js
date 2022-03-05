@@ -26,7 +26,14 @@ class UserModel {
     }
 
     static findAll = async () => {
-        const sql = commonQueryGetAll(tableName)
+        const sql = `
+        select 
+            a.*, b.role_name 
+        from 
+            ${tableName} a
+        left join
+            ${DB_SCHEMA}.t_user_role b on a.role_id = b.id
+        `
         console.log(sql)
         
         try {
