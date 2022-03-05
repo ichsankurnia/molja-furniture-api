@@ -14,6 +14,7 @@ class UserController {
                 username: Joi.string().required(),
                 password: Joi.string().min(5).required(),
                 fullname: Joi.string().optional().allow('').allow(null),
+                role_id: Joi.number().optional(),
                 email: Joi.string().email().optional().allow('').allow(null)
             })
 
@@ -27,7 +28,6 @@ class UserController {
                     return res.send(response)
                 }
                 
-                req.body.role_id = 1
                 req.body.password = await encryptAes(req.body.password)
 
                 const data = await UserModel.create(req.body)
@@ -104,6 +104,7 @@ class UserController {
                 username: Joi.string().optional(),
                 password: Joi.string().min(5).optional(),
                 fullname: Joi.string().optional().allow('').allow(null),
+                role_id: Joi.number().optional(),
                 email: Joi.string().email().optional().allow('').allow(null)
             })
 
