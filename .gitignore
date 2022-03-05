@@ -76,3 +76,5 @@ typings/
 .fusebox/
 
 images/
+
+package-lock.json
