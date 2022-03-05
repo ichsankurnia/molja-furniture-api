@@ -1,6 +1,7 @@
 const {Router} = require("express")
 const AboutUsController = require("../controllers/aboutus-controller")
 const CatalogController = require("../controllers/catalog-controller")
+const CategoryController = require("../controllers/category_controller")
 const ContactUsController = require("../controllers/contactus-controller")
 const HomeController = require("../controllers/home-controller")
 const UserController = require("../controllers/user-controller")
@@ -56,6 +57,14 @@ router.post('/catalog-new', uploadImageMultiple, resizeImageMultiple, CatalogCon
 router.patch('/catalog-update/:id', uploadImageMultiple, resizeImageMultiple, CatalogController.editCatalog)
 router.delete('/catalog-delete/:id', CatalogController.deleteCatalog)
 
+
+// ```CATEGORY```
 router.get('/catalog-category-get', CatalogController.getAllCategories)
+
+router.post('/catalog-category-new', CategoryController.addCategory)
+router.get('/catalog-category-all', CategoryController.getAllCategory)
+router.get('/catalog-category-one', CategoryController.getOneCategory)
+router.patch('/catalog-category-update/:id', CategoryController.editCategory)
+router.delete('/catalog-category-delete/:id', CategoryController.deleteCategory)
 
 module.exports = router
