@@ -32,7 +32,8 @@ class UserModel {
         from 
             ${tableName} a
         left join
-            ${DB_SCHEMA}.t_user_role b on a.role_id = b.id
+            ${DB_SCHEMA}.t_user_role b on a.role_id = b.id 
+        ORDER BY coalesce(a.updated_on, a.created_on) DESC, id DESC
         `
         console.log(sql)
         
