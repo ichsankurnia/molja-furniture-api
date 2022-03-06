@@ -36,12 +36,13 @@ class CatalogModel {
         from 
             ${tableName} a
         left join
-            ${DB_SCHEMA}.t_category_catalog b on a.category_id = b.id
+            ${DB_SCHEMA}.t_category_catalog b on a.category_id = b.id 
+        ORDER BY coalesce(a.updated_on, a.created_on) DESC, id DESC
         `
 
         try {
             const result = await db.manyOrNone(sql)
-            console.log(result)
+            // console.log(result)
             if(result.length > 0){
                 const arrRes = []
                 result.forEach(item => {
