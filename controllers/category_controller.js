@@ -2,6 +2,8 @@ const Joi = require("joi")
 const { ApplicationError, ValidationError } = require("../helpers/error-handler")
 const moment = require('moment-timezone')
 const CategoryModel = require("../models/category-model")
+const CatalogModel = require("../models/catalog-model")
+const { deleteImages } = require("../helpers/helper")
 require('dotenv').config()
 
 class CategoryController {
@@ -134,10 +136,26 @@ class CategoryController {
     static deleteCategory = async (req, res, next) => {
         try {
             let response = {code: 104, message: 'Internal Error, failed delete category', data: null}
-            
+
             const findcategory = await CategoryModel.findOne(req.params)
             
             if(findcategory){
+                
+                const products = await CatalogModel.findAll()
+                
+                products.forEach(async item => {
+                    /* Check apakah category yg dihapus ada dalam product, jika ada hapus product nya juga, dam unlink imagenya */
+                    // console.log(item.category_id)
+                    if(item.category_id === req.params.id){
+                        await CatalogModel.delete({id: item.id})
+                        // console.log(item)
+                        if(item.images?.length > 0){
+                            // console.log(item.images)
+                            await deleteImages(item.images)
+                        }
+                    }
+                })
+
                 const data = await CategoryModel.delete(req.params)
                 if(data){
                     response.code = 0
