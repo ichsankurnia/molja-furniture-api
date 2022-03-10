@@ -1,0 +1,16 @@
+Deploy Node Apps in Cpanel
+
+1. bikin aplikasi pada setup nodejs, tulis nama folder aplikasi (ex: myapi), pilih nama domain/subdomain(sbg base_url yg akan diakses oleh client), tulis startup file (ex: index.js)
+2. copykan source env (ex: source /home/moljafur/nodevenv/apimolja/16/bin/activate && cd /home/moljafur/apimolja)
+3. ssh ke server lwat putty
+4. paste jalankan source env (contoh virtual env sudah aktif: [apimolja (16)] ....)
+5. setelah masuk ke virtual environment nya, masuk ke folder aplikasi (myapi)
+6. deploy file2 aplikasi, lalu jalankan npm install
+7. install pm2 (npm install pm2)
+8. start aplikasi (npx pm2 start index.js --name myapi)
+
+
+Restart applikasi nodejs
+1. masuk ke env
+2. masuk ke folder aplikasi (cd myapi)
+3. jalankan npx pm2 restart myapi
